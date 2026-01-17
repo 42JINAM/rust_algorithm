@@ -1,7 +1,4 @@
-use std::{
-    collections::HashMap,
-    io::{self, BufRead},
-};
+use std::io::{self, BufRead};
 
 fn main() {
     let stdin = io::stdin();
@@ -34,21 +31,24 @@ fn count_divisor(mut n: u32) -> u32 {
     }
 
     let sqrt_n: u32 = (n as f64).sqrt() as u32;
-    let mut primes: HashMap<u32, u32> = HashMap::new();
+    let mut cnt: u32 = 1;
     for i in 2..=sqrt_n {
+        let mut exp = 1;
         while n % i == 0 {
-            if primes.contains_key(&i) {
-                primes.insert(i as u32, primes[&i] + 1);
-            } else {
-                primes.insert(i, 1);
-            }
+            exp += 1;
             n /= i;
+        }
+        if exp > 1 {
+            cnt *= exp;
+        }
+        if n == 1 {
+            break;
         }
     }
     if n != 1 {
-        primes.insert(n, 1);
+        cnt *= 2;
     }
-    primes.values().map(|&exp| exp + 1).product()
+    cnt
 }
 
 fn triangular_number(limit: u32) -> u32 {
