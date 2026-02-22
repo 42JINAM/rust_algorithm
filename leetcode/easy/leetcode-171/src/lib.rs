@@ -1,5 +1,17 @@
 pub struct Solution;
 
+//
+// "For this problem, we convert Excel letters to numbers from left to right.
+// We take the first letter, convert it to a number, multiply by 26, then add the next letter's number.
+//
+// To make it easy, think of decimal 1234:
+// - Start with 1 (1)
+// - Multiply by 10, add 2 → 12
+// - Multiply by 10, add 3 → 123
+// - Multiply by 10, add 4 → 1234
+//
+// Same logic, but base-26 instead of base-10!"
+//
 impl Solution {
     fn ft_atoi(s: &[char]) -> i32 {
         let mut result = 0;
