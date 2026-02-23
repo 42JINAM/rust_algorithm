@@ -15,20 +15,20 @@ impl ListNode {
 }
 impl Solution {
     pub fn remove_elements(head: Option<Box<ListNode>>, val: i32) -> Option<Box<ListNode>> {
-        let mut dummy = Box::new(ListNode::new(0));
-        dummy.next = head;
-        let mut cur = &mut dummy;
-
-        while let Some(mut node) = cur.next.take() {
-            if node.val == val {
-                cur.next = node.next.take();
-            } else {
-                cur.next = Some(node);
-                cur = cur.next.as_mut().unwrap();
+        let mut head = head;
+        let mut walker = &mut head;
+        loop {
+            match walker {
+                None => break,
+                Some(node) if node.val == val => {
+                    *walker = node.next.take();
+                }
+                Some(node) => {
+                    walker = &mut node.next;
+                }
             }
         }
-
-        dummy.next.take()
+        head
     }
 
     // ===== 여기에 LeetCode 터미널 코드 붙여넣기 =====
